@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { link } from "fs";
 const Todo = props => {
   const [todoName, setTodoName] = useState("");
@@ -10,6 +11,16 @@ const Todo = props => {
 
   const todoAddHandler = () => {
     setTodoList(todoList.concat(todoName));
+    axios
+      .post("https://hooks-test-project.firebaseio.com/todos.json", {
+        name: todoName
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   return (
     <React.Fragment>
